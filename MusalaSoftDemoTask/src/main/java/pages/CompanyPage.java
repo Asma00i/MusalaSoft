@@ -1,8 +1,12 @@
 package pages;
 
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+
+
+
 
 public class CompanyPage extends PageBase {
     public CompanyPage(WebDriver driver) {
@@ -10,31 +14,26 @@ public class CompanyPage extends PageBase {
 
     }
 
-    @FindBy(className = "cm-content")
-    WebElement leadershipHeader;
+    @FindBy(xpath = "//*[text()='Leadership']")
+    public WebElement leadershipHeader;
 
-    @FindBy (className = "musala musala-icon-facebook")
+    @FindBy(css = "span.musala.musala-icon-facebook")
     WebElement fbButton;
 
     public String getCompanyPageURL() {
-        String url = driver.getCurrentUrl();
-        return url;
+        return driver.getCurrentUrl();
     }
 
     public String getFBPageURL() {
-        String url = driver.getCurrentUrl();
-        return url;
+        return driver.getCurrentUrl();
     }
 
 
-    public void getLeadershipHeaderText() {
-        PageBase.getTextFromelement(leadershipHeader);
-    }
-
-
-    public void clickOnFBLink ()
-    {
-    PageBase.clickButton(fbButton);
+    public void clickOnFBLink() {
+        PageBase.implicitWait();
+        PageBase.scrollDown(fbButton);
+        PageBase.clickButton(fbButton);
+        PageBase.implicitWait();
     }
 
 }

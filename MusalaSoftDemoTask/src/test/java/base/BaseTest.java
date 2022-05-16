@@ -6,7 +6,6 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import pages.*;
 
-import java.sql.Driver;
 
 public class BaseTest {
 
@@ -18,38 +17,31 @@ public class BaseTest {
     protected JoinUsPage joinUsPage;
     protected JobsPage jobsPage;
 
+
     @BeforeClass
     public void setUp() {
+
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver.exe");
-
         driver = new ChromeDriver();
-
         driver.manage().window().maximize();
-
         driver.get("https://www.musala.com/");
-//driver.get("https://www.musala.com/careers/");
         System.out.println(driver.getTitle());
 
         homePage = new HomePage(driver);
         contactUsPage = new ContactUsPage(driver);
         careersPage = new CareersPage(driver);
         joinUsPage = new JoinUsPage(driver);
-        companyPage= new CompanyPage(driver);
+        companyPage = new CompanyPage(driver);
         jobsPage = new JobsPage(driver);
     }
 
+
+
+
     @AfterClass
-            public void tearDown()
-    {
+    public void tearDown() {
         driver.quit();
     }
-
-//    public static void main(String args[]) {
-//        BaseTest test = new BaseTest();
-//        test.setUp();
-//
-//
-//    }
 
 
 }

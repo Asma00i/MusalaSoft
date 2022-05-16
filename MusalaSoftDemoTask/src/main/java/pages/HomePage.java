@@ -3,7 +3,13 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+
+import java.time.Duration;
 
 
 public class HomePage extends PageBase {
@@ -16,28 +22,33 @@ public class HomePage extends PageBase {
     @FindBy(xpath = "//span[text()='Contact us']")
     WebElement homepageContactUS;
 
-    //    @FindBy (css = "a[href*='https://www.musala.com/company/']")
-//    @FindBy(className = "main-link")
-//    WebElement homepageCompanyTab;
 
-    @FindBy(css = "a[href*='https://www.musala.com/careers/']")
-    WebElement homepageCareersTab;
 
+
+    public void clickAcceptWebCookies() {
+
+        new WebDriverWait(driver, Duration.ofSeconds(1L)).until(ExpectedConditions.elementToBeClickable(By.id("wt-cli-accept-all-btn"))).click();
+
+    }
 
     public void clickOnContactUSButton() {
 
-        PageBase.scrollDown((By) homepageContactUS);
+        PageBase.scrollDown(homepageContactUS);
         PageBase.clickButton(homepageContactUS);
     }
 
+
     public void clickOnCompanyTab() {
 
-        PageBase.hoveroverElement("a[href*='https://www.musala.com/company/']", 1);
-//        PageBase.clickButton(homepageCompanyTab);
+        new WebDriverWait(driver, Duration.ofSeconds(1L)).until(ExpectedConditions.elementToBeClickable(By.xpath("//ul[@id=\"menu-main-nav-1\"]//li/a[text()='Company']"))).click();
+
     }
 
     public void clickOnCareersTab() {
-        PageBase.clickButton(homepageCareersTab);
+
+        new WebDriverWait(driver, Duration.ofSeconds(1L)).until(ExpectedConditions.elementToBeClickable(By.xpath("//ul[@id=\"menu-main-nav-1\"]//li/a[text()='Careers']"))).click();
+
+
     }
 
 

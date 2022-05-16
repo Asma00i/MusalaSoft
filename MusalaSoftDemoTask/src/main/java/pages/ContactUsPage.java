@@ -1,9 +1,13 @@
 package pages;
 
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
 import org.openqa.selenium.support.FindBy;
+
 
 public class ContactUsPage extends PageBase {
 
@@ -26,10 +30,10 @@ public class ContactUsPage extends PageBase {
     @FindBy(id = "cf-5")
     WebElement contactUsMessageField;
 
-    @FindBy(xpath = "//div[@class='recaptcha-checkbox-checkmark']")
-    WebElement imNotRobotCheckBox;
+    @FindBy(xpath = "//*[@id=\"wpcf7-f875-o1\"]/form/span/span/div/div/iframe")
+    WebElement imNotRobotIfram;
 
-    @FindBy(xpath = "//input[@class='wpcf7-form-control has-spinner wpcf7-submit btn-cf-submit']")
+    @FindBy(xpath = "//input[@type='submit']")
     WebElement sendContactUsForm;
 
     @FindBy(xpath = "//span[@class='wpcf7-not-valid-tip']")
@@ -43,10 +47,22 @@ public class ContactUsPage extends PageBase {
         PageBase.setElementText(contactUsMobileField, mobile);
         PageBase.setElementText(contactUsSubjectField, subject);
         PageBase.setElementText(contactUsMessageField, massage);
-        PageBase.clickButton(imNotRobotCheckBox);
+        clickOnImNotRobot();
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,1000)");
+        PageBase.implicitWait();
+
         PageBase.clickButton(sendContactUsForm);
     }
 
+    public void clickOnImNotRobot() {
+
+        driver.switchTo().frame(imNotRobotIfram);
+        WebElement imNotRobot = driver.findElement(By.xpath("//*[@id=\"recaptcha-anchor-label\"]"));
+        imNotRobot.click();
+
+    }
 
 }
 

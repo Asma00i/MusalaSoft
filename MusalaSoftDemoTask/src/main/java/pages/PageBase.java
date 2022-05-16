@@ -1,17 +1,21 @@
 package pages;
 
+
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
+
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.Select;
+
+import java.time.Duration;
 
 
 public class PageBase {
 
-    protected static WebDriver driver; //--> This Needs to be protected
+    protected static WebDriver driver;
 
     //Creating Constructor
     protected PageBase(WebDriver driver) {
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
@@ -21,31 +25,26 @@ public class PageBase {
 
     }
 
-    protected static void getTextFromelement(WebElement gettingTxt) {
-        gettingTxt.getText();
+    protected static String getElementText(WebElement gettingTxt) {
+        String getTxt = gettingTxt.getText();
+        return getTxt;
     }
 
     protected static void setElementText(WebElement textelement, String value) {
         textelement.sendKeys(value);
     }
 
-    protected static void scrollDown(By element) {
+    protected static void scrollDown(WebElement element) {
+
+
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("arguments[0].scrollIntoView();", element);
-//                ((JavascriptExecutor) driver).executeScript("scroll(0,800)");
     }
 
     protected static void clickDropdown(String dropdown, String value) {
 
         Select selectingOptionFromDropDown = new Select(driver.findElement(By.id(dropdown)));
         selectingOptionFromDropDown.selectByValue(value);
-    }
-
-
-    protected static void hoveroverElement(String element, int indexOfSelectedElement) {
-        WebElement elementList = driver.findElements(By.cssSelector(element)).get(indexOfSelectedElement - 1);
-        Actions actions = new Actions(driver);
-        actions.moveToElement(elementList).perform();
     }
 
 
@@ -58,7 +57,14 @@ public class PageBase {
         }
     }
 
+    protected static void uploadFile(By by, String filePath) {
+        driver.findElement(by).sendKeys(filePath);
+    }
+
+
+    protected static void implicitWait() {
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5L));
+
+    }
 }
-
-
 

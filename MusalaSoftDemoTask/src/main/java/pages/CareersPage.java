@@ -17,4 +17,6 @@ public class CareersPage extends PageBase {
     public void checkOurOpenPositions() {
         PageBase.clickButton(checkOutOpenPositions);
     }
+
+
 }
